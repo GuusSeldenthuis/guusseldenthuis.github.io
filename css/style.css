@@ -1,0 +1,116 @@
+html {
+    background-color: #000;
+}
+
+body {
+    margin: 1em auto;
+    border-radius: 1em;
+    padding: 1em;
+    color: #ff145a;
+    animation: changecolor 5s infinite linear;
+    border: 1px solid #ff145a;
+    animation: changebordercolor 5s infinite linear;
+    background-color: #111;
+    font-family: ShareTechMono;
+    cursor: default;
+    width: 800px;
+    /* box-shadow: 5px 10px 18px #000; */
+}
+
+hr {
+    border: 1px solid #ff145a;
+    animation: changebordercolor 5s infinite linear;
+}
+
+h1 {
+    font-family: ShareTechMono, sans-serif;
+    font-weight: bold;
+    color: #ff145a;
+    animation: changecolor 5s infinite linear;
+    margin: 0 0;
+    padding: 0 0;
+    font-size: 4rem;
+}
+
+p {
+    color: #ff145a;
+    animation: changecolor 5s infinite linear;
+}
+
+.gif {
+    width: 100%;
+    padding: -1em;
+}
+
+@font-face {
+    font-family: ShareTechMono;
+    src: url(ShareTechMono-Regular.ttf);
+}
+
+@keyframes changecolor {
+    12.5% {
+        color: #f00;
+    }
+
+    25% {
+        color: #FFA500;
+    }
+
+    37.5% {
+        color: #ff0;
+    }
+
+    50% {
+        color: #7FFF00;
+    }
+
+    62.5% {
+        color: #0ff;
+    }
+
+    75% {
+        color: #00f;
+    }
+
+    87.5% {
+        color: #9932CC;
+    }
+
+    100% {
+        color: #FF1493;
+    }
+}
+
+@keyframes changebordercolor {
+    12.5% {
+        border: 1px solid #f00;
+    }
+
+    25% {
+        border: 1px solid #FFA500;
+    }
+
+    37.5% {
+        border: 1px solid #ff0;
+    }
+
+    50% {
+        border: 1px solid #7FFF00;
+    }
+
+    62.5% {
+        border: 1px solid #0ff;
+    }
+
+    75% {
+        border: 1px solid #00f;
+    }
+
+    87.5% {
+        border: 1px solid #9932CC;
+    }
+
+    100% {
+        border: 1px solid #FF1493;
+    }
+}
