@@ -5,15 +5,11 @@
     padding: 0;
 }
 
-html {
-    background-color: #000;
-}
-
 body {
     display: flex;
     flex-direction: column;
-    color: #ff145a;
-    animation: changeColor 5s infinite linear;
+    color: #fff;
+    animation: changeColor 120s infinite linear;
     background-color: #111;
     font-family: ShareTechMono;
     width: 100%;
@@ -24,8 +20,8 @@ body {
     margin: 1em;
     border-radius: 1em;
     padding: 1em;
-    border: 1px solid #ff145a;
-    animation: changeColor 5s infinite linear;
+    border: 1px solid #fff;
+    animation: changeColor 120s infinite linear;
     cursor: default;
 }
 
@@ -36,15 +32,15 @@ body {
 }
 
 hr {
-    border: 1px solid #ff145a;
-    animation: changeColor 5s infinite linear;
+    border: 1px solid #f0f;
+    animation: changeColor 120s infinite linear;
 }
 
 h1, h2, h3, h4, h5, h6 {
     font-family: ShareTechMono, sans-serif;
     font-weight: bold;
-    color: #ff145a;
-    animation: changeColor 5s infinite linear;
+    color: #fff;
+    animation: changeColor 120s infinite linear;
 }
 
 h1 {
@@ -57,8 +53,8 @@ h1 {
 }
 
 p {
-    color: #ff145a;
-    animation: changeColor 5s infinite linear;
+    color: #fff;
+    animation: changeColor 120s infinite linear;
 }
 
 .gif {
@@ -80,14 +76,15 @@ p {
     font-size: 0.8rem;
 }
 
-@media only screen and (min-width: 768px) {
-    .blog p {
-        column-count: 2;
-    }
+li {
+    margin-left: 1em;
 }
 
-
-
+@media only screen and (min-width: 768px) {
+    .blog p {
+        column-count: 1;
+    }
+}
 
 @font-face {
     font-family: ShareTechMono;
@@ -95,43 +92,29 @@ p {
 }
 
 @keyframes changeColor {
-    12.5% {
-        color: #f00;
-        border-color: #f00;
+
+    0% {
+        color: #fff;
+        border-color: #fff;
     }
 
-    25% {
-        color: #FFA500;
-        border-color: #FFA500;
+    20% {
+        color: #0f0;
+        border-color: #0f0;
     }
 
-    37.5% {
-        color: #ff0;
-        border-color: #ff0;
-    }
-
-    50% {
-        color: #7FFF00;
-        border-color: #7FFF00;
-    }
-
-    62.5% {
+    40% {
         color: #0ff;
         border-color: #0ff;
     }
 
-    75% {
-        color: #00f;
-        border-color: #00f;
+    60% {
+        color: #f0f;
+        border-color: #f0f;
     }
 
-    87.5% {
-        color: #9932CC;
-        border-color: #9932CC;
-    }
-
-    100% {
-        color: #FF1493;
-        border-color: #FF1493;
+    80% {
+        color: #ff0;
+        border-color: #ff0;
     }
 }
