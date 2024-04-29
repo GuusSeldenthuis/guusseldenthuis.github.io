@@ -8,9 +8,8 @@
 body {
     display: flex;
     flex-direction: column;
-    color: #fff;
-    animation: changeColor 120s infinite linear;
-    background-color: #111;
+    color: rgb(255, 150, 79);
+    background-color: #222;
     font-family: ShareTechMono;
     width: 100%;
     align-items: center;
@@ -20,8 +19,7 @@ body {
     margin: 1em;
     border-radius: 1em;
     padding: 1em;
-    border: 1px solid #fff;
-    animation: changeColor 120s infinite linear;
+    border: 1px solid rgb(255, 150, 79);
     cursor: default;
 }
 
@@ -32,15 +30,13 @@ body {
 }
 
 hr {
-    border: 1px solid #f0f;
-    animation: changeColor 120s infinite linear;
+    border: 1px solid rgb(255, 150, 79);
 }
 
 h1, h2, h3, h4, h5, h6 {
     font-family: ShareTechMono, sans-serif;
     font-weight: bold;
-    color: #fff;
-    animation: changeColor 120s infinite linear;
+    color: rgb(255, 150, 79);
 }
 
 h1 {
@@ -53,8 +49,7 @@ h1 {
 }
 
 p {
-    color: #fff;
-    animation: changeColor 120s infinite linear;
+    color: rgb(255, 150, 79);
 }
 
 .gif {
@@ -91,30 +86,3 @@ li {
     src: url(ShareTechMono-Regular.ttf);
 }
 
-@keyframes changeColor {
-
-    0% {
-        color: #fff;
-        border-color: #fff;
-    }
-
-    20% {
-        color: #0f0;
-        border-color: #0f0;
-    }
-
-    40% {
-        color: #0ff;
-        border-color: #0ff;
-    }
-
-    60% {
-        color: #f0f;
-        border-color: #f0f;
-    }
-
-    80% {
-        color: #ff0;
-        border-color: #ff0;
-    }
-}
