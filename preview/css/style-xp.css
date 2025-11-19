@@ -7,6 +7,12 @@ body {
     min-height: 100vh;
     font-family: "Segoe UI", Tahoma, sans-serif;
     position: relative;
+    cursor: default;
+}
+
+/* Default cursor for all text elements */
+body, p, h1, h2, h3, h4, h5, h6, span, div, li, ol, ul, strong {
+    cursor: default;
 }
 
 /* Pixel-grid overlay for better image quality */
