@@ -24,11 +24,13 @@ body {
 
 /* Button styling */
 .minimize-btn,
+.maximize-btn,
 .close-btn {
     cursor: pointer;
 }
 
 .minimize-btn:hover,
+.maximize-btn:hover,
 .close-btn:hover {
     opacity: 0.8;
 }
