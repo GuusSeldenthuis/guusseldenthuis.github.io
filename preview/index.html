@@ -195,9 +195,17 @@
           const windowBody = window.querySelector('.window-body');
 
           if (windowBody.style.display === 'none') {
+            // Restore window
             windowBody.style.display = 'block';
+            this.setAttribute('aria-label', 'Minimize');
+            this.classList.remove('maximize-btn');
+            this.classList.add('minimize-btn');
           } else {
+            // Minimize window
             windowBody.style.display = 'none';
+            this.setAttribute('aria-label', 'Maximize');
+            this.classList.remove('minimize-btn');
+            this.classList.add('maximize-btn');
           }
         });
       });

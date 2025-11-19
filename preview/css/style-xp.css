@@ -2,9 +2,26 @@
 body {
     margin: 0;
     padding: 0;
-    background: linear-gradient(to bottom, #5a7fcc 0%, #3465a4 100%);
+    background: url('https://frutigeraeroarchive.org/images/wallpapers/windows_xp/windows_xp_15.jpg') no-repeat center center fixed;
+    background-size: cover;
     min-height: 100vh;
     font-family: "Segoe UI", Tahoma, sans-serif;
+    position: relative;
+}
+
+/* Pixel-grid overlay for better image quality */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image:
+        repeating-linear-gradient(0deg, transparent, transparent 1px, rgba(0, 0, 0, 0.03) 1px, rgba(0, 0, 0, 0.03) 2px),
+        repeating-linear-gradient(90deg, transparent, transparent 1px, rgba(0, 0, 0, 0.03) 1px, rgba(0, 0, 0, 0.03) 2px);
+    pointer-events: none;
+    z-index: 1;
 }
 
 .desktop {
@@ -14,6 +31,8 @@ body {
     gap: 20px;
     max-width: 1200px;
     margin: 0 auto;
+    position: relative;
+    z-index: 2;
 }
 
 /* Window Styling */
@@ -24,11 +43,13 @@ body {
 
 /* Button styling */
 .minimize-btn,
+.maximize-btn,
 .close-btn {
     cursor: pointer;
 }
 
 .minimize-btn:hover,
+.maximize-btn:hover,
 .close-btn:hover {
     opacity: 0.8;
 }
