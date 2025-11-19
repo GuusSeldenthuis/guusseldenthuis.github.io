@@ -6,20 +6,21 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Guus Seldenthuis</title>
-  <meta name="description" content="Guus' webpage">
+  <title>Guus Seldenthuis - XP Style Preview</title>
+  <meta name="description" content="Guus' webpage - Windows XP Style Preview">
   <meta name="author" content="Guus Seldenthuis">
 
-  <meta property="og:title" content="Guus Seldenthuis">
+  <meta property="og:title" content="Guus Seldenthuis - XP Style Preview">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://guusseldenthuis.nl/">
-  <meta property="og:description" content="Guus Seldenthuis his own website.">
+  <meta property="og:url" content="https://guusseldenthuis.nl/preview/">
+  <meta property="og:description" content="Guus Seldenthuis his own website - Windows XP Style Preview.">
   <meta property="og:image" content="https://guusseldenthuis.nl/viking.gif">
 
   <link rel="icon" href="https://guusseldenthuis.nl/favicon.ico" />
   <link rel="icon" href="https://guusseldenthuis.nl/favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="https://guusseldenthuis.nl/apple-touch-icon.png">
-  <link rel="stylesheet" href="https://guusseldenthuis.nl/css/style.css?v=1.1">
+  <link rel="stylesheet" href="https://unpkg.com/xp.css">
+  <link rel="stylesheet" href="css/style-xp.css">
 
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-CZ8M3P8WDG"></script>
@@ -34,19 +35,33 @@
 </head>
 
 <body>
-  <div class="wrapper">
-    <header>
-      <h1>Guus Seldenthuis .nl</h1>
-      <hr />
-    </header>
-    <main>
-      <p>Welcome on my webpage, I'm happy you're here. (:</p>
-      <p>This is the place where I reveal my thoughts by writing to the vast and great internet.</p>
-      <h2>Blogs</h2>
-      <hr />
-      <article class="blog">
-        <h3 class="blogTitle">Freudian artificial intelligence<span class="date">29-04-2024</span></h3>
-        <hr />
+  <div class="desktop">
+    <div class="window header-window">
+      <div class="title-bar">
+        <div class="title-bar-text">Guus Seldenthuis .nl</div>
+        <div class="title-bar-controls">
+          <button aria-label="Minimize"></button>
+          <button aria-label="Maximize"></button>
+          <button aria-label="Close"></button>
+        </div>
+      </div>
+      <div class="window-body">
+        <p>Welcome on my webpage, I'm happy you're here. (:</p>
+        <p>This is the place where I reveal my thoughts by writing to the vast and great internet.</p>
+      </div>
+    </div>
+
+    <div class="window blog-window">
+      <div class="title-bar">
+        <div class="title-bar-text">Freudian artificial intelligence</div>
+        <div class="title-bar-controls">
+          <button aria-label="Minimize"></button>
+          <button aria-label="Maximize"></button>
+          <button aria-label="Close"></button>
+        </div>
+      </div>
+      <div class="window-body">
+        <p class="blog-date"><strong>Posted:</strong> 29-04-2024</p>
         <p>Hello friend, it has been a while.
           I'm really busy with all kinds of different ventures such as starting a small company, learning about AI and doing loads of side-projects.
           Made some small changes to the blog too, going to start writing in english and I shall start practicing a new writing style, hope you'll like it. (:
@@ -99,11 +114,20 @@
           confluence of human and artificial minds.</p>
 
           <p>Adieu. Guus Seldenthuis April 29, 2024</p>
-      </article>
+      </div>
+    </div>
 
-      <article class="blog">
-        <h3 class="blogTitle">AI (Dutch)<span class="date">23-03-2023</span></h3>
-        <hr />
+    <div class="window blog-window">
+      <div class="title-bar">
+        <div class="title-bar-text">AI (Dutch)</div>
+        <div class="title-bar-controls">
+          <button aria-label="Minimize"></button>
+          <button aria-label="Maximize"></button>
+          <button aria-label="Close"></button>
+        </div>
+      </div>
+      <div class="window-body">
+        <p class="blog-date"><strong>Posted:</strong> 23-03-2023</p>
         <p>Kunstmatige intelligentie (AI) is naar voren gekomen als een van de meest transformerende technologieën van
           de 21e eeuw.
           Het heeft al aanzienlijke bijdragen geleverd op verschillende gebieden, van gezondheidszorg tot financiën en
@@ -159,7 +183,8 @@
           deze risico's te beperken. Door vooroordelen aan te pakken, transparantie te vergroten, regelgeving te
           implementeren, te investeren in omscholing en onderwijs en samenwerking te bevorderen, kunnen we ervoor zorgen
           dat AI op een veilige en verantwoorde manier wordt gebruikt waar we allemaal baat bij hebben.</p>
-      </article>
+      </div>
+    </div>
   </div>
 </body>
 
