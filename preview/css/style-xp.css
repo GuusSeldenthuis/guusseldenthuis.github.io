@@ -19,6 +19,18 @@ body {
 /* Window Styling */
 .window {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    transition: opacity 0.2s ease;
+}
+
+/* Button styling */
+.minimize-btn,
+.close-btn {
+    cursor: pointer;
+}
+
+.minimize-btn:hover,
+.close-btn:hover {
+    opacity: 0.8;
 }
 
 .header-window {
@@ -32,6 +44,7 @@ body {
 .window-body {
     max-height: 600px;
     overflow-y: auto;
+    transition: all 0.2s ease;
 }
 
 .blog-date {
