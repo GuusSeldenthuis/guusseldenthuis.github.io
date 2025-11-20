@@ -84,7 +84,8 @@
       // Handle minimize buttons
       const minimizeButtons = document.querySelectorAll('.minimize-btn');
       minimizeButtons.forEach(function(button) {
-        button.addEventListener('click', function() {
+        button.addEventListener('click', function(e) {
+          e.stopPropagation();
           const window = this.closest('.window');
           const windowBody = window.querySelector('.window-body');
 
@@ -107,10 +108,54 @@
       // Handle close buttons
       const closeButtons = document.querySelectorAll('.close-btn');
       closeButtons.forEach(function(button) {
-        button.addEventListener('click', function() {
+        button.addEventListener('click', function(e) {
+          e.stopPropagation();
           const window = this.closest('.window');
           window.style.display = 'none';
         });
+      });
+
+      // Drag functionality for windows
+      let isDragging = false;
+      let currentWindow = null;
+      let offsetX = 0;
+      let offsetY = 0;
+
+      const titleBars = document.querySelectorAll('.title-bar');
+      titleBars.forEach(function(titleBar) {
+        titleBar.addEventListener('mousedown', function(e) {
+          // Don't drag if clicking on buttons
+          if (e.target.closest('.title-bar-controls')) {
+            return;
+          }
+
+          isDragging = true;
+          currentWindow = this.closest('.window');
+
+          const rect = currentWindow.getBoundingClientRect();
+          offsetX = e.clientX - rect.left;
+          offsetY = e.clientY - rect.top;
+
+          currentWindow.style.transition = 'none';
+        });
+      });
+
+      document.addEventListener('mousemove', function(e) {
+        if (!isDragging || !currentWindow) return;
+
+        const x = e.clientX - offsetX;
+        const y = e.clientY - offsetY;
+
+        currentWindow.style.left = x + 'px';
+        currentWindow.style.top = y + 'px';
+      });
+
+      document.addEventListener('mouseup', function() {
+        if (currentWindow) {
+          currentWindow.style.transition = '';
+        }
+        isDragging = false;
+        currentWindow = null;
       });
     });
   </script>

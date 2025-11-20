@@ -47,19 +47,22 @@ body::after {
 
 .desktop {
     padding: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    max-width: 1200px;
-    margin: 0 auto;
     position: relative;
     z-index: 2;
+    width: 100%;
+    height: 100vh;
 }
 
 /* Window Styling */
 .window {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     transition: opacity 0.2s ease;
+    position: absolute;
+}
+
+.title-bar {
+    cursor: move;
+    user-select: none;
 }
 
 /* Button styling */
@@ -77,10 +80,14 @@ body::after {
 
 .header-window {
     max-width: 600px;
+    top: 50px;
+    left: 50px;
 }
 
 .blog-window {
     max-width: 900px;
+    top: 200px;
+    left: 100px;
 }
 
 .window-body {
@@ -126,16 +133,24 @@ body::after {
 @media only screen and (max-width: 768px) {
     .desktop {
         padding: 10px;
-        gap: 15px;
     }
 
     .header-window,
     .blog-window {
-        max-width: 100%;
+        max-width: calc(100vw - 40px);
+        left: 10px !important;
+    }
+
+    .header-window {
+        top: 10px !important;
+    }
+
+    .blog-window {
+        top: 160px !important;
     }
 
     .window-body {
-        max-height: 500px;
+        max-height: 400px;
     }
 }
 
