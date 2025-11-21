@@ -7,6 +7,12 @@ body {
     min-height: 100vh;
     font-family: "Segoe UI", Tahoma, sans-serif;
     position: relative;
+    cursor: default;
+}
+
+/* Default cursor for all text elements */
+body, p, h1, h2, h3, h4, h5, h6, span, div, li, ol, ul, strong {
+    cursor: default;
 }
 
 /* Pixel-grid overlay for better image quality */
@@ -18,27 +24,45 @@ body::before {
     width: 100%;
     height: 100%;
     background-image:
-        repeating-linear-gradient(0deg, transparent, transparent 1px, rgba(0, 0, 0, 0.03) 1px, rgba(0, 0, 0, 0.03) 2px),
-        repeating-linear-gradient(90deg, transparent, transparent 1px, rgba(0, 0, 0, 0.03) 1px, rgba(0, 0, 0, 0.03) 2px);
+        repeating-linear-gradient(0deg, transparent, transparent 1px, rgba(0, 0, 0, 0.08) 1px, rgba(0, 0, 0, 0.08) 2px),
+        repeating-linear-gradient(90deg, transparent, transparent 1px, rgba(0, 0, 0, 0.08) 1px, rgba(0, 0, 0, 0.08) 2px);
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* Additional texture overlay to mask JPEG artifacts */
+body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image:
+        repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(255, 255, 255, 0.02) 2px, rgba(255, 255, 255, 0.02) 4px),
+        repeating-linear-gradient(-45deg, transparent, transparent 2px, rgba(0, 0, 0, 0.02) 2px, rgba(0, 0, 0, 0.02) 4px);
     pointer-events: none;
     z-index: 1;
 }
 
 .desktop {
     padding: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    max-width: 1200px;
-    margin: 0 auto;
     position: relative;
     z-index: 2;
+    width: 100%;
+    height: 100vh;
 }
 
 /* Window Styling */
 .window {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     transition: opacity 0.2s ease;
+    position: absolute;
+}
+
+.title-bar {
+    cursor: move;
+    user-select: none;
 }
 
 /* Button styling */
@@ -56,10 +80,14 @@ body::before {
 
 .header-window {
     max-width: 600px;
+    top: 50px;
+    left: 50px;
 }
 
 .blog-window {
     max-width: 900px;
+    top: 200px;
+    left: 100px;
 }
 
 .window-body {
@@ -105,16 +133,24 @@ body::before {
 @media only screen and (max-width: 768px) {
     .desktop {
         padding: 10px;
-        gap: 15px;
     }
 
     .header-window,
     .blog-window {
-        max-width: 100%;
+        max-width: calc(100vw - 40px);
+        left: 10px !important;
+    }
+
+    .header-window {
+        top: 10px !important;
+    }
+
+    .blog-window {
+        top: 160px !important;
     }
 
     .window-body {
-        max-height: 500px;
+        max-height: 400px;
     }
 }
 
