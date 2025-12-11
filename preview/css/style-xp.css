@@ -90,6 +90,12 @@ body::after {
     left: 100px;
 }
 
+.code-window {
+    max-width: 700px;
+    top: 100px;
+    left: 300px;
+}
+
 .window-body {
     max-height: 600px;
     overflow-y: auto;
@@ -129,6 +135,23 @@ body::after {
     line-height: 1.6;
 }
 
+/* Code block styling - Windows XP Command Prompt style */
+.window-body pre {
+    background: #000;
+    color: #c0c0c0;
+    padding: 15px;
+    border: 1px solid #808080;
+    margin: 15px 0;
+    overflow-x: auto;
+    font-family: 'Lucida Console', 'Courier New', monospace;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.window-body code {
+    font-family: 'Lucida Console', 'Courier New', monospace;
+}
+
 /* Responsive design */
 @media only screen and (max-width: 768px) {
     .desktop {
@@ -136,7 +159,8 @@ body::after {
     }
 
     .header-window,
-    .blog-window {
+    .blog-window,
+    .code-window {
         max-width: calc(100vw - 40px);
         left: 10px !important;
     }
@@ -147,6 +171,10 @@ body::after {
 
     .blog-window {
         top: 160px !important;
+    }
+
+    .code-window {
+        top: 80px !important;
     }
 
     .window-body {
