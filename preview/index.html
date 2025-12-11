@@ -76,6 +76,40 @@
         <p>Rest in peace, you overly helpful little paperclip. 📎</p>
       </div>
     </div>
+
+    <div class="window blog-window code-window">
+      <div class="title-bar">
+        <div class="title-bar-text">Bitcoin Difficulty Calculator</div>
+        <div class="title-bar-controls">
+          <button aria-label="Minimize" class="minimize-btn"></button>
+          <button aria-label="Close" class="close-btn"></button>
+        </div>
+      </div>
+      <div class="window-body">
+        <p class="blog-date"><strong>Posted:</strong> 15-11-2025</p>
+
+        <p>Quick TypeScript snippet for calculating Bitcoin block difficulty:</p>
+
+        <pre><code>function calculateDifficulty(bits: number): number {
+  // Extract exponent and coefficient from bits
+  const exponent = bits >> 24;
+  const coefficient = bits & 0xffffff;
+
+  // Calculate target from compact representation
+  const target = coefficient * Math.pow(2, 8 * (exponent - 3));
+
+  // Maximum target (difficulty 1)
+  const maxTarget = 0xffff * Math.pow(2, 8 * (0x1d - 3));
+
+  // Difficulty is max_target / current_target
+  return maxTarget / target;
+}
+
+// Example: Block height 800000 has bits 0x170823d0
+const difficulty = calculateDifficulty(0x170823d0);
+console.log(`Difficulty: ${difficulty.toFixed(2)}`);</code></pre>
+      </div>
+    </div>
   </div>
 
   <script>
