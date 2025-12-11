@@ -92,8 +92,8 @@ body::after {
 
 .code-window {
     max-width: 700px;
-    top: 100px;
-    left: 300px;
+    top: 350px;
+    left: 450px;
 }
 
 .window-body {
