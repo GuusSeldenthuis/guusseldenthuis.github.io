@@ -1,151 +1,73 @@
-<!doctype html>
-
+<!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <title>Guus Seldenthuis</title>
-  <meta name="description" content="Guus' webpage">
-  <meta name="author" content="Guus Seldenthuis">
-
-  <meta property="og:title" content="Guus Seldenthuis">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://guusseldenthuis.nl/">
-  <meta property="og:description" content="Guus Seldenthuis his own website.">
-  <meta property="og:image" content="https://guusseldenthuis.nl/viking.gif">
-
-  <link rel="icon" href="https://guusseldenthuis.nl/favicon.ico" />
-  <link rel="icon" href="https://guusseldenthuis.nl/favicon.svg" type="image/svg+xml">
-  <link rel="apple-touch-icon" href="https://guusseldenthuis.nl/apple-touch-icon.png">
-  <link rel="stylesheet" href="https://unpkg.com/xp.css">
-  <link rel="stylesheet" href="css/style.css">
-
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CZ8M3P8WDG"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', 'G-CZ8M3P8WDG');
-  </script>
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog</title>
+  <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-  <div class="desktop">
-    <div class="window header-window">
-      <div class="title-bar">
-        <div class="title-bar-text">Guus Seldenthuis .nl</div>
-        <div class="title-bar-controls">
-          <button aria-label="Minimize" class="minimize-btn"></button>
-          <button aria-label="Close" class="close-btn"></button>
-        </div>
-      </div>
-      <div class="window-body">
-        <p>Welcome on my webpage, I'm happy you're here. (:</p>
-        <p>This is the place where I reveal my thoughts by writing to the vast and great internet.</p>
-      </div>
-    </div>
+  <div id="app">
 
-    <div class="window blog-window">
-      <div class="title-bar">
-        <div class="title-bar-text">Explorer</div>
-        <div class="title-bar-controls">
-          <button aria-label="Minimize" class="minimize-btn"></button>
-          <button aria-label="Close" class="close-btn"></button>
+    <aside id="sidebar">
+      <div id="blog-name"></div>
+
+      <nav id="main-nav">
+        <button class="nav-item" id="nav-home">
+          <span class="nav-icon"><img src="icons/house.png" width="16" height="16" alt=""></span>
+          Home
+        </button>
+        <button class="nav-item nav-active" id="nav-posts">
+          <span class="nav-icon"><img src="icons/page_white_text.png" width="16" height="16" alt=""></span>
+          Posts
+        </button>
+      </nav>
+
+      <div class="sidebar-section" id="projects-section" hidden>
+        <div class="section-label">Projects</div>
+        <div id="projects-list"></div>
+      </div>
+
+      <div class="sidebar-section" id="online-section" hidden>
+        <div class="section-label">Online</div>
+        <div id="online-list"></div>
+      </div>
+    </aside>
+
+    <main id="content">
+
+      <div id="posts-pane">
+        <div class="pane-header">Posts</div>
+        <ul id="post-list"></ul>
+      </div>
+
+      <div id="article-pane" hidden>
+        <div id="post-view">
+          <h1 id="post-title"></h1>
+          <div id="post-meta"></div>
+          <div id="post-body"></div>
         </div>
       </div>
-      <div class="window-body">
-        <p class="blog-date"><strong>Posted:</strong> 24-02-2026</p>
-        <p>I miss windows xp</p>
+
+      <div id="home-pane" hidden>
+        <div id="home-content"></div>
       </div>
-    </div>
+
+    </main>
   </div>
 
-  <script>
-    // Window controls functionality
-    document.addEventListener('DOMContentLoaded', function() {
-      // Handle minimize buttons
-      const minimizeButtons = document.querySelectorAll('.minimize-btn');
-      minimizeButtons.forEach(function(button) {
-        button.addEventListener('click', function(e) {
-          e.stopPropagation();
-          const window = this.closest('.window');
-          const windowBody = window.querySelector('.window-body');
+  <nav id="tab-bar">
+    <button class="tab tab-active" id="tab-home">
+      <img src="icons/house.png" width="16" height="16" alt="">
+      <span>home</span>
+    </button>
+    <button class="tab" id="tab-posts">
+      <img src="icons/page_white_text.png" width="16" height="16" alt="">
+      <span>posts</span>
+    </button>
+  </nav>
 
-          if (windowBody.style.display === 'none') {
-            // Restore window
-            windowBody.style.display = 'block';
-            this.setAttribute('aria-label', 'Minimize');
-            this.classList.remove('maximize-btn');
-            this.classList.add('minimize-btn');
-          } else {
-            // Minimize window
-            windowBody.style.display = 'none';
-            this.setAttribute('aria-label', 'Maximize');
-            this.classList.remove('minimize-btn');
-            this.classList.add('maximize-btn');
-          }
-        });
-      });
-
-      // Handle close buttons
-      const closeButtons = document.querySelectorAll('.close-btn');
-      closeButtons.forEach(function(button) {
-        button.addEventListener('click', function(e) {
-          e.stopPropagation();
-          const window = this.closest('.window');
-          window.style.display = 'none';
-        });
-      });
-
-      // Drag functionality for windows
-      let isDragging = false;
-      let currentWindow = null;
-      let offsetX = 0;
-      let offsetY = 0;
-
-      const titleBars = document.querySelectorAll('.title-bar');
-      titleBars.forEach(function(titleBar) {
-        titleBar.addEventListener('mousedown', function(e) {
-          // Don't drag if clicking on buttons
-          if (e.target.closest('.title-bar-controls')) {
-            return;
-          }
-
-          isDragging = true;
-          currentWindow = this.closest('.window');
-
-          const rect = currentWindow.getBoundingClientRect();
-          offsetX = e.clientX - rect.left;
-          offsetY = e.clientY - rect.top;
-
-          currentWindow.style.transition = 'none';
-        });
-      });
-
-      document.addEventListener('mousemove', function(e) {
-        if (!isDragging || !currentWindow) return;
-
-        const x = e.clientX - offsetX;
-        const y = e.clientY - offsetY;
-
-        currentWindow.style.left = x + 'px';
-        currentWindow.style.top = y + 'px';
-      });
-
-      document.addEventListener('mouseup', function() {
-        if (currentWindow) {
-          currentWindow.style.transition = '';
-        }
-        isDragging = false;
-        currentWindow = null;
-      });
-    });
-  </script>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="app.js"></script>
 </body>
-
 </html>
