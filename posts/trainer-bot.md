@@ -59,6 +59,8 @@ prompts/
 
 `settings.json` is where you configure the actual training parameters: which exercises are allowed, how often rest days should appear, the progressive overload percentage. Change those and the next generated schedule reflects them, no code changes needed.
 
+![Patrick Bateman has no time for love](./images/telegram_fitness_bot.png "Telegram screenshot")
+
 ## What It's Like to Use
 
 I've been using it every day for over two months now. That alone tells you more than anything else I could say about it.
