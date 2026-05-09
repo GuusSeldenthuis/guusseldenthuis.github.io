@@ -1,5 +1,12 @@
 [
     {
+    "slug": "bvix-post",
+    "title": "BVIX stuff",
+    "date": "2026-05-01",
+    "views": 1000,
+    "comments": 0
+  },
+    {
     "slug": "home-nas-docker",
     "title": "Home NAS with docker",
     "date": "2026-03-16",
