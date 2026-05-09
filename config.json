@@ -1,0 +1,10 @@
+{
+  "name": "Guus Seldenthuis",
+  "projects": [
+    { "name": "0x283a", "url": "https://0x283a.com/", "color": "#4a90d9" }
+  ],
+  "online": [
+    { "name": "GitHub",    "url": "https://github.com/GuusSeldenthuis",   "platform": "github" },
+    { "name": "LinkedIn", "url": "https://nl.linkedin.com/in/guusseldenthuis","platform": "linkedin" }
+  ]
+}
