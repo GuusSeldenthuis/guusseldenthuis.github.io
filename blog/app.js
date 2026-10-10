@@ -1,6 +1,3 @@
-const COMMENT_ICON = `<img src="icons/comment.png" width="14" height="14" alt="" style="vertical-align:middle;opacity:0.7">`;
-const EXT_ICON     = `<img src="icons/link_go.png" width="16" height="16" alt="">`;
-
 const PLATFORM_ICONS = {
   twitter:   'icons/world_go.png',
   youtube:   'icons/film.png',
@@ -12,76 +9,67 @@ const PLATFORM_ICONS = {
   default:   'icons/world_go.png',
 };
 
-function timeAgo(dateStr) {
-  const diff = Date.now() - new Date(dateStr).getTime();
-  const units = [
-    [365 * 24 * 3600 * 1000, 'year'],
-    [30  * 24 * 3600 * 1000, 'month'],
-    [24  *      3600 * 1000, 'day'],
-    [          3600 * 1000, 'hour'],
-    [            60 * 1000, 'minute'],
-  ];
-  for (const [ms, unit] of units) {
-    const n = Math.floor(diff / ms);
-    if (n >= 1) return `${n} ${unit}${n > 1 ? 's' : ''} ago`;
-  }
-  return 'just now';
+const TAG_COLORS = ['var(--yellow)', 'var(--mint)', 'var(--blue)', 'var(--pink)'];
+
+const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+function formatDate(dateStr) {
+  const d = new Date(dateStr);
+  return `${d.getDate()} ${MONTHS[d.getMonth()]} ${d.getFullYear()}`;
 }
 
-function formatViews(n) {
-  if (!n) return null;
-  if (n >= 1_000_000) return `${(n / 1_000_000).toFixed(1)}m`;
-  if (n >= 1_000)     return `${(n / 1_000).toFixed(1)}k`;
-  return n.toLocaleString();
+// Same tag always gets the same colour
+function tagColor(tag) {
+  let h = 0;
+  for (const c of tag) h = (h * 31 + c.charCodeAt(0)) >>> 0;
+  return TAG_COLORS[h % TAG_COLORS.length];
+}
+
+function renderTags(tags = []) {
+  return tags.map(t =>
+    `<span class="tag" style="background:${tagColor(t)}">${t}</span>`
+  ).join('');
 }
 
 let posts = [];
 
-// ── Sidebar ────────────────────────────────────────
+// ── Hero ───────────────────────────────────────────
 
-function buildSidebar(config) {
+function buildHero(config, aboutMd) {
   document.getElementById('blog-name').textContent = config.name;
   document.title = config.name;
+  document.getElementById('hero-content').innerHTML = marked.parse(aboutMd);
+  document.getElementById('site-footer').textContent =
+    `© ${new Date().getFullYear()} ${config.name}`;
 
-  if (config.projects?.length) {
-    const section = document.getElementById('projects-section');
-    const list    = document.getElementById('projects-list');
-    section.hidden = false;
-    config.projects.forEach(p => {
-      const initial = p.name.charAt(0).toUpperCase();
-      const a = document.createElement('a');
-      a.className = 'ext-link-item';
-      a.href = p.url;
-      a.target = '_blank';
-      a.rel = 'noopener';
-      a.innerHTML = `
-        <span class="ext-icon" style="background:${p.color ?? '#888'}">${initial}</span>
-        <span class="ext-name">${p.name}</span>
-        <span class="ext-arrow">${EXT_ICON}</span>
-      `;
-      list.appendChild(a);
-    });
-  }
+  const links = document.getElementById('hero-links');
 
-  if (config.online?.length) {
-    const section = document.getElementById('online-section');
-    const list    = document.getElementById('online-list');
-    section.hidden = false;
-    config.online.forEach(o => {
-      const iconSrc = PLATFORM_ICONS[o.platform] ?? PLATFORM_ICONS.default;
-      const a = document.createElement('a');
-      a.className = 'ext-link-item';
-      a.href = o.url;
-      a.target = '_blank';
-      a.rel = 'noopener';
-      a.innerHTML = `
-        <span class="ext-icon ext-icon-img"><img src="${iconSrc}" width="16" height="16" alt=""></span>
-        <span class="ext-name">${o.name}</span>
-        <span class="ext-arrow">${EXT_ICON}</span>
-      `;
-      list.appendChild(a);
-    });
-  }
+  (config.projects ?? []).forEach(p => {
+    const a = document.createElement('a');
+    a.className = 'link-btn';
+    a.href = p.url;
+    a.target = '_blank';
+    a.rel = 'noopener';
+    a.innerHTML = `
+      <span class="project-initial" style="background:${p.color ?? '#888'}">${p.name.charAt(0).toUpperCase()}</span>
+      ${p.name}
+      <img src="icons/link_go.png" width="16" height="16" alt="">
+    `;
+    links.appendChild(a);
+  });
+
+  (config.online ?? []).forEach(o => {
+    const a = document.createElement('a');
+    a.className = 'link-btn';
+    a.href = o.url;
+    a.target = '_blank';
+    a.rel = 'noopener';
+    a.innerHTML = `
+      <img src="${PLATFORM_ICONS[o.platform] ?? PLATFORM_ICONS.default}" width="16" height="16" alt="">
+      ${o.name}
+    `;
+    links.appendChild(a);
+  });
 }
 
 // ── Post list ──────────────────────────────────────
@@ -89,129 +77,76 @@ function buildSidebar(config) {
 function buildPostList() {
   const list = document.getElementById('post-list');
   list.innerHTML = '';
+
+  if (!posts.length) {
+    list.innerHTML = `<li class="empty">Nothing here yet. Check back soon!</li>`;
+    return;
+  }
+
   posts.forEach(post => {
     const li = document.createElement('li');
-    li.className = 'post-item';
-    li.dataset.slug = post.slug;
     li.innerHTML = `
-      <div class="post-item-text">
+      <a class="post-item" href="#${post.slug}">
+        <span class="post-item-date">${formatDate(post.date)}</span>
         <span class="post-item-title">${post.title}</span>
-        <span class="post-item-date">${timeAgo(post.date)}</span>
-      </div>
-      <div class="post-item-count">${COMMENT_ICON} ${post.comments ?? 0}</div>
+        <span class="tags">${renderTags(post.tags)}</span>
+      </a>
     `;
-    li.addEventListener('click', () => navigate(`#${post.slug}`));
     list.appendChild(li);
   });
 }
 
 // ── Views ──────────────────────────────────────────
 
-function setActiveNav(id) {
-  document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('nav-active'));
-  document.getElementById(id)?.classList.add('nav-active');
-}
-
-function setMobileView(view) {
-  document.getElementById('app').className = `view-${view}`;
-  document.querySelectorAll('.tab').forEach(t => t.classList.remove('tab-active'));
-  const tabId = view === 'article' ? 'tab-posts' : `tab-${view}`;
-  document.getElementById(tabId)?.classList.add('tab-active');
-}
-
-async function showPosts() {
-  document.getElementById('posts-pane').style.display   = '';
-  document.getElementById('article-pane').hidden = true;
-  document.getElementById('home-pane').hidden    = true;
-  setActiveNav('nav-posts');
-  setMobileView('posts');
-}
-
-async function showHome() {
-  const res  = await fetch('about.md');
-  const md   = await res.text();
-  document.getElementById('home-content').innerHTML = marked.parse(md);
-  document.getElementById('posts-pane').style.display   = 'none';
-  document.getElementById('article-pane').hidden = true;
-  document.getElementById('home-pane').hidden    = false;
-  setActiveNav('nav-home');
-  setMobileView('home');
+function showView(id) {
+  document.getElementById('home-view').hidden = id !== 'home-view';
+  document.getElementById('post-view').hidden = id !== 'post-view';
   window.scrollTo(0, 0);
-  document.getElementById('content').scrollTop = 0;
+}
+
+function showHome() {
+  document.title = document.getElementById('blog-name').textContent;
+  showView('home-view');
 }
 
 async function showPost(slug) {
   const post = posts.find(p => p.slug === slug);
-  if (!post) return;
+  if (!post) { showHome(); return; }
 
-  // Highlight active in list
-  document.querySelectorAll('.post-item').forEach(el =>
-    el.classList.toggle('active', el.dataset.slug === slug)
-  );
+  const res = await fetch(`posts/${slug}.md`);
+  const md  = await res.text();
 
-  const res  = await fetch(`posts/${slug}.md`);
-  const md   = await res.text();
-
+  document.title = `${post.title} · ${document.getElementById('blog-name').textContent}`;
+  document.getElementById('post-tags').innerHTML    = renderTags(post.tags);
   document.getElementById('post-title').textContent = post.title;
-  const views = formatViews(post.views);
-  document.getElementById('post-meta').textContent =
-    [timeAgo(post.date), views ? `${views} views` : null].filter(Boolean).join('. ') + '.';
-  document.getElementById('post-body').innerHTML = marked.parse(md);
-
-  document.getElementById('posts-pane').style.display   = 'none';
-  document.getElementById('article-pane').hidden = false;
-  document.getElementById('home-pane').hidden    = true;
-  setActiveNav('nav-posts');
-  setMobileView('article');
-  window.scrollTo(0, 0);
-  document.getElementById('content').scrollTop = 0;
+  document.getElementById('post-meta').textContent  = formatDate(post.date);
+  document.getElementById('post-body').innerHTML    = marked.parse(md);
+  showView('post-view');
 }
 
 // ── Routing ────────────────────────────────────────
 
-function navigate(hash, push = true) {
-  if (push) history.pushState(null, '', hash || '#');
-  const slug = hash.replace(/^#/, '');
-  if (!slug || slug === 'posts') { showPosts(); return; }
-  if (slug === 'home')           { showHome();  return; }
-  showPost(slug);
+function route() {
+  const slug = location.hash.replace(/^#/, '');
+  if (!slug || slug === 'home' || slug === 'posts') showHome();
+  else showPost(slug);
 }
 
 // ── Init ───────────────────────────────────────────
 
 async function init() {
-  const [config, postsData] = await Promise.all([
+  const [config, postsData, aboutMd] = await Promise.all([
     fetch('config.json').then(r => r.json()),
     fetch('posts/index.json').then(r => r.json()),
+    fetch('about.md').then(r => r.text()),
   ]);
 
   posts = postsData;
-  buildSidebar(config);
+  buildHero(config, aboutMd);
   buildPostList();
 
-  // Sidebar nav buttons
-  document.getElementById('nav-home').addEventListener('click',  () => navigate('#home'));
-  document.getElementById('nav-posts').addEventListener('click', () => navigate('#posts'));
-
-  // Mobile tab bar
-  document.getElementById('tab-home').addEventListener('click',  () => navigate('#home'));
-  document.getElementById('tab-posts').addEventListener('click', () => navigate('#posts'));
-
-  window.addEventListener('popstate', () => navigate(location.hash, false));
-
-  // Initial route
-  const hash = location.hash;
-  if (hash && hash !== '#' && hash !== '#posts') {
-    navigate(hash, false);
-  } else {
-    const isDesktop = window.matchMedia('(min-width: 769px)').matches;
-    if (isDesktop && posts.length > 0) {
-      showPosts();
-      showPost(posts[0].slug);
-    } else {
-      showPosts();
-    }
-  }
+  window.addEventListener('hashchange', route);
+  route();
 }
 
 init();
