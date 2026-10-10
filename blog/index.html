@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="app">
+
+    <aside id="sidebar">
+      <div id="blog-name"></div>
+
+      <nav id="main-nav">
+        <button class="nav-item" id="nav-home">
+          <span class="nav-icon"><img src="icons/house.png" width="16" height="16" alt=""></span>
+          Home
+        </button>
+        <button class="nav-item nav-active" id="nav-posts">
+          <span class="nav-icon"><img src="icons/page_white_text.png" width="16" height="16" alt=""></span>
+          Posts
+        </button>
+      </nav>
+
+      <div class="sidebar-section" id="projects-section" hidden>
+        <div class="section-label">Projects</div>
+        <div id="projects-list"></div>
+      </div>
+
+      <div class="sidebar-section" id="online-section" hidden>
+        <div class="section-label">Online</div>
+        <div id="online-list"></div>
+      </div>
+    </aside>
+
+    <main id="content">
+
+      <div id="posts-pane">
+        <div class="pane-header">Posts</div>
+        <ul id="post-list"></ul>
+      </div>
+
+      <div id="article-pane" hidden>
+        <div id="post-view">
+          <h1 id="post-title"></h1>
+          <div id="post-meta"></div>
+          <div id="post-body"></div>
+        </div>
+      </div>
+
+      <div id="home-pane" hidden>
+        <div id="home-content"></div>
+      </div>
+
+    </main>
+  </div>
+
+  <nav id="tab-bar">
+    <button class="tab tab-active" id="tab-home">
+      <img src="icons/house.png" width="16" height="16" alt="">
+      <span>home</span>
+    </button>
+    <button class="tab" id="tab-posts">
+      <img src="icons/page_white_text.png" width="16" height="16" alt="">
+      <span>posts</span>
+    </button>
+  </nav>
+
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
